@@ -4,10 +4,13 @@
     <ClCompile Include="C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\src\window.cpp">
+    <ClCompile Include="C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\src\glad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\src\glad.c">
+    <ClCompile Include="C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\src\shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\src\memory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

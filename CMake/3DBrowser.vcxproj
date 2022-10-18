@@ -314,8 +314,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\src\main.cpp" />
-    <ClCompile Include="C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\src\window.cpp" />
     <ClCompile Include="C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\src\glad.c" />
+    <ClCompile Include="C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\src\shader.cpp" />
+    <ClCompile Include="C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\src\memory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\CMake\ZERO_CHECK.vcxproj">

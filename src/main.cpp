@@ -1,79 +1,138 @@
 #include <iostream>
 
+#include "window.h"
+#include "shader.h"
+//Separate into src file
+#include "camera.h"
+
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 #include "SDL2/SDL.h"
-//#include "SDL2/SDL_opengl.h"
 #include "glad/glad.h"
 
-#include "window.h"
+Window mainWindow;
+Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
-SDL_Window* mainWindow = NULL;
-SDL_Surface* screenSurface = NULL;
-SDL_GLContext mainContext;
+// Enable depth test??
 
 int main( int argc, char* args[] )
-{
-    //Initialize SDL
-    if( SDL_Init(SDL_INIT_VIDEO) < 0)
-    {
-        std::cout << "SDL could not initialize! SDL_Error: %s\n";
-        std::cout << SDL_GetError();
-        return -1;
-    }
+{   
+    //Load Window
+    mainWindow = InitWindow();
+    //Load Shader
+    Shader shader = LazyLoadShader("../../res/shaders/vertex.vert", "../../res/shaders/fragment.frag");
+    float vertices[] = {
+         0.5f,  0.5f, 0.0f,  // top right
+         0.5f, -0.5f, 0.0f,  // bottom right
+        -0.5f, -0.5f, 0.0f,  // bottom left
+        -0.5f,  0.5f, 0.0f   // top left 
+    };
+    unsigned int indices[] = {  // note that we start from 0!
+        0, 1, 3,  // first Triangle
+        1, 2, 3   // second Triangle
+    };
 
-    //Setup Window
-    mainWindow = SDL_CreateWindow("3D Browser", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-    if(mainWindow == NULL)
-    {
-        std::cout << "Window could not be created! SDL_Error: %s\n"; 
-        std::cout << SDL_GetError();
-        return -1;
-    }
+    unsigned int VBO, VAO, EBO;
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+    glGenBuffers(1, &EBO);
+    glBindVertexArray(VAO);
 
-    //GL Attributes
-    SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 4 );
-    SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 5 );
-    SDL_GL_SetAttribute( SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE );
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    //Creating GL Context
-    mainContext = SDL_GL_CreateContext( mainWindow );
-    if(mainContext == NULL)
-    {
-        std::cout << "OpenGL context could not be created! SDL Error: %s\n";
-        std::cout << SDL_GetError();
-        return -1;
-    }
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-    //Loading Glad
-    if (!gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress))
-    {
-        std::cout << "Failed to initialize GLAD" << std::endl;
-        std::cout << SDL_GetError();
-        return -1;
-    }    
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
 
-    //Use Vsync
-    if( SDL_GL_SetSwapInterval( 1 ) < 0 )
-    {
-        std::cout << "Warning: Unable to set VSync! SDL Error: %s\n";
-        std::cout << SDL_GetError();
-    }
+    glBindBuffer(GL_ARRAY_BUFFER, 0); 
 
-    //Make window white
-    screenSurface = SDL_GetWindowSurface(mainWindow);
-    SDL_FillRect( screenSurface, NULL, SDL_MapRGB( screenSurface->format, 0xFF, 0xFF, 0xFF ) );
-    SDL_UpdateWindowSurface( mainWindow );
+    glBindVertexArray(0); 
+
+    bool Running = 1;
+    bool FullScreen = 0;
+
+    Uint64 NOW = SDL_GetPerformanceCounter();
+    Uint64 LAST = 0;
+    double deltaTime = 0;
 
     //Event Loop
-    SDL_Event e; bool quit = false; 
-    while(SDL_PollEvent( &e ) || quit == false)
-    { 
-        if(e.type == SDL_QUIT) { quit = true; } 
-    } 
+    while (Running)
+    {   
+        //Deltatime
+        LAST = NOW;
+        NOW = SDL_GetPerformanceCounter();
+        deltaTime = (double)((NOW - LAST) / (double)SDL_GetPerformanceFrequency() );
+
+        //Input
+        SDL_Event Event;
+        while (SDL_PollEvent(&Event))
+        {
+            if (Event.type == SDL_KEYDOWN)
+            {
+                switch (Event.key.keysym.sym)
+                {
+                case SDLK_ESCAPE:
+                    Running = 0;
+                    break;
+                case 'f':
+                    FullScreen = !FullScreen;
+                    if (FullScreen)
+                    {
+                    SDL_SetWindowFullscreen(mainWindow.window, mainWindow.flags | SDL_WINDOW_FULLSCREEN_DESKTOP);
+                    }
+                    else
+                    {
+                    SDL_SetWindowFullscreen(mainWindow.window, mainWindow.flags);
+                    }
+                    break;
+                case 'w': camera.ProcessKeyboard(FORWARD, deltaTime);
+                    break;
+                case 'a': camera.ProcessKeyboard(LEFT, deltaTime);
+                    break;
+                case 's': camera.ProcessKeyboard(BACKWARD, deltaTime);
+                    break;
+                case 'd': camera.ProcessKeyboard(RIGHT, deltaTime);
+                    break;
+                default:
+                    break;
+                }
+            }
+            else if (Event.type == SDL_QUIT)
+            {
+                Running = 0;
+            }
+        }
+
+    //Prerender
+    glViewport(0, 0, mainWindow.SCREEN_WIDTH, mainWindow.SCREEN_HEIGHT);
+    glClearColor(0.3f, 0.2f, 0.8f, 0.f);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)mainWindow.SCREEN_WIDTH / (float)mainWindow.SCREEN_HEIGHT, 0.1f, 100.0f);
+    shader.SetUniformMat4("projection", projection);
+
+    glm::mat4 view = camera.GetViewMatrix();
+    shader.SetUniformMat4("view", view);
+
+    //Per object Basis
+    glm::mat4 model = glm::mat4(1.0);
+    shader.SetUniformMat4("model", model);
+
+    // Draw Objects
+    glUseProgram(shader.ShaderProgram);
+    glBindVertexArray(VAO);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+    SDL_GL_SwapWindow(mainWindow.window);
+  }
     
     //Cleanup
-    SDL_DestroyWindow(mainWindow);
+    SDL_DestroyWindow(mainWindow.window);
     SDL_Quit();
 
     return 0;
