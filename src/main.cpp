@@ -22,7 +22,7 @@ int main( int argc, char* args[] )
     //Load Window
     mainWindow = InitWindow();
     //Load Shader
-    Shader shader = LazyLoadShader("../../res/shaders/vertex.vert", "../../res/shaders/fragment.frag");
+    Shader shader = LazyLoadShader("../res/shaders/vertex.vert", "../res/shaders/fragment.frag");
     float vertices[] = {
          0.5f,  0.5f, 0.0f,  // top right
          0.5f, -0.5f, 0.0f,  // bottom right
@@ -58,7 +58,7 @@ int main( int argc, char* args[] )
 
     Uint64 NOW = SDL_GetPerformanceCounter();
     Uint64 LAST = 0;
-    double deltaTime = 0;
+    float deltaTime = 0;
 
     //Event Loop
     while (Running)
@@ -66,7 +66,7 @@ int main( int argc, char* args[] )
         //Deltatime
         LAST = NOW;
         NOW = SDL_GetPerformanceCounter();
-        deltaTime = (double)((NOW - LAST) / (double)SDL_GetPerformanceFrequency() );
+        deltaTime = (float)((NOW - LAST) / (float)SDL_GetPerformanceFrequency() );
 
         //Input
         SDL_Event Event;
