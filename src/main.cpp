@@ -4,6 +4,7 @@
 #include "shader.h"
 //Separate into src file
 #include "camera.h"
+#include "renderer.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -15,16 +16,16 @@
 Window mainWindow;
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 
-void mouseMovement(double, double);
-
 // Enable depth test??
+void ProcessInput(float);
 
 int main( int argc, char* args[] )
 {   
     //Load Window
     mainWindow = InitWindow();
     //Load Shader
-    Shader shader = LazyLoadShader("../res/shaders/vertex.vert", "../res/shaders/fragment.frag");
+    Shader shader = LazyLoadShader("res/shaders/vertex.vert", "res/shaders/fragment.frag");
+    LoadModel();
     float vertices[] = {
          0.5f,  0.5f, 0.0f,  // top right
          0.5f, -0.5f, 0.0f,  // bottom right
@@ -55,15 +56,14 @@ int main( int argc, char* args[] )
 
     glBindVertexArray(0); 
 
-    bool Running = 1;
-    bool FullScreen = 0;
+
 
     Uint64 NOW = SDL_GetPerformanceCounter();
     Uint64 LAST = 0;
     float deltaTime = 0;
 
     //Event Loop
-    while (Running)
+    while (mainWindow.Running)
     {   
         //Deltatime
         LAST = NOW;
@@ -71,6 +71,42 @@ int main( int argc, char* args[] )
         deltaTime = (float)((NOW - LAST) / (float)SDL_GetPerformanceFrequency() );
 
         //Input
+        ProcessInput(deltaTime);
+
+        //Prerender
+        glViewport(0, 0, mainWindow.SCREEN_WIDTH, mainWindow.SCREEN_HEIGHT);
+        glClearColor(0.3f, 0.2f, 0.8f, 0.f);
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        //Render
+        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)mainWindow.SCREEN_WIDTH / (float)mainWindow.SCREEN_HEIGHT, 0.1f, 100.0f);
+        shader.SetUniformMat4("projection", projection);
+
+        glm::mat4 view = camera.GetViewMatrix();
+        shader.SetUniformMat4("view", view);
+
+        //Per object Basis
+        glm::mat4 model = glm::mat4(1.0);
+        shader.SetUniformMat4("model", model);
+
+        glUseProgram(shader.ShaderProgram);
+        glBindVertexArray(VAO);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+        //Last Rendering thingy
+        SDL_GL_SwapWindow(mainWindow.window);
+    }
+    
+    //Cleanup
+    SDL_DestroyWindow(mainWindow.window);
+    SDL_Quit();
+
+    return 0;
+}
+
+
+void ProcessInput(float deltaTime)
+{
         SDL_Event Event;
         while (SDL_PollEvent(&Event))
         {   
@@ -80,11 +116,11 @@ int main( int argc, char* args[] )
                     switch (Event.key.keysym.sym)
                     {
                         case SDLK_ESCAPE:
-                            Running = 0;
+                            mainWindow.Running = 0;
                             break;
                         case 'f':
-                            FullScreen = !FullScreen;
-                            if (FullScreen)
+                            mainWindow.FullScreen = !mainWindow.FullScreen;
+                            if (mainWindow.FullScreen)
                             {
                                 SDL_SetWindowFullscreen(mainWindow.window, mainWindow.flags | SDL_WINDOW_FULLSCREEN_DESKTOP);
                             }
@@ -97,9 +133,9 @@ int main( int argc, char* args[] )
                             break;
                     }
                 break;
-                case SDL_QUIT: Running = 0;
+                case SDL_QUIT: mainWindow.Running = 0;
                 break;
-                case SDL_MOUSEMOTION: camera.ProcessMouseMovement(Event.motion.xrel, -Event.motion.yrel); //mouseMovement(Event.motion.x, Event.motion.y);
+                case SDL_MOUSEMOTION: camera.ProcessMouseMovement((float)Event.motion.xrel, (float)-Event.motion.yrel); //mouseMovement(Event.motion.x, Event.motion.y);
                 break;
 
             }
@@ -129,33 +165,4 @@ int main( int argc, char* args[] )
         {
             camera.ProcessKeyboard(DOWN, deltaTime);
         }
-
-    //Prerender
-    glViewport(0, 0, mainWindow.SCREEN_WIDTH, mainWindow.SCREEN_HEIGHT);
-    glClearColor(0.3f, 0.2f, 0.8f, 0.f);
-    glClear(GL_COLOR_BUFFER_BIT);
-
-    glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)mainWindow.SCREEN_WIDTH / (float)mainWindow.SCREEN_HEIGHT, 0.1f, 100.0f);
-    shader.SetUniformMat4("projection", projection);
-
-    glm::mat4 view = camera.GetViewMatrix();
-    shader.SetUniformMat4("view", view);
-
-    //Per object Basis
-    glm::mat4 model = glm::mat4(1.0);
-    shader.SetUniformMat4("model", model);
-
-    // Draw Objects
-    glUseProgram(shader.ShaderProgram);
-    glBindVertexArray(VAO);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
-    SDL_GL_SwapWindow(mainWindow.window);
-  }
-    
-    //Cleanup
-    SDL_DestroyWindow(mainWindow.window);
-    SDL_Quit();
-
-    return 0;
 }

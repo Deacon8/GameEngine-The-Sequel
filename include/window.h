@@ -11,6 +11,8 @@ struct Window
     int SCREEN_WIDTH = 800;
     int SCREEN_HEIGHT = 600;
     int flags;
+    bool Running = 1;
+    bool FullScreen = 0;
 };typedef struct Window Window;
 
 Window InitWindow()
