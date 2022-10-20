@@ -22,9 +22,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{7537E8A4-BF53-3C92-8588-CD4180D3F278}</ProjectGuid>
-    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
+    <ProjectGuid>{4A06902C-77A6-38FB-8E88-79C7E31C0217}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
     <Platform>x64</Platform>
     <ProjectName>3DBrowser</ProjectName>
     <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
@@ -59,25 +59,25 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\CMake\Debug\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\deaco\Desktop\Programming\3D-Browser\build\Debug\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">3DBrowser.dir\Debug\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">3DBrowser</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\CMake\Release\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\deaco\Desktop\Programming\3D-Browser\build\Release\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">3DBrowser.dir\Release\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">3DBrowser</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\CMake\MinSizeRel\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\deaco\Desktop\Programming\3D-Browser\build\MinSizeRel\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">3DBrowser.dir\MinSizeRel\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">3DBrowser</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\CMake\RelWithDebInfo\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\deaco\Desktop\Programming\3D-Browser\build\RelWithDebInfo\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">3DBrowser.dir\RelWithDebInfo\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">3DBrowser</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.exe</TargetExt>
@@ -86,7 +86,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\deaco\Desktop\Programming\3D-Browser\CMake\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -103,10 +103,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\deaco\Desktop\Programming\3D-Browser\CMake\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\deaco\Desktop\Programming\3D-Browser\CMake\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -119,8 +119,8 @@
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>C:/Users/csowe/OneDrive/Desktop/CC++/3DBrowser/3D-Browser/CMake/Debug/3DBrowser.lib</ImportLibrary>
-      <ProgramDataBaseFile>C:/Users/csowe/OneDrive/Desktop/CC++/3DBrowser/3D-Browser/CMake/Debug/3DBrowser.pdb</ProgramDataBaseFile>
+      <ImportLibrary>C:/Users/deaco/Desktop/Programming/3D-Browser/build/Debug/3DBrowser.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/deaco/Desktop/Programming/3D-Browser/build/Debug/3DBrowser.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -129,7 +129,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\deaco\Desktop\Programming\3D-Browser\CMake\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -146,10 +146,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\deaco\Desktop\Programming\3D-Browser\CMake\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\deaco\Desktop\Programming\3D-Browser\CMake\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -162,8 +162,8 @@
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>C:/Users/csowe/OneDrive/Desktop/CC++/3DBrowser/3D-Browser/CMake/Release/3DBrowser.lib</ImportLibrary>
-      <ProgramDataBaseFile>C:/Users/csowe/OneDrive/Desktop/CC++/3DBrowser/3D-Browser/CMake/Release/3DBrowser.pdb</ProgramDataBaseFile>
+      <ImportLibrary>C:/Users/deaco/Desktop/Programming/3D-Browser/build/Release/3DBrowser.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/deaco/Desktop/Programming/3D-Browser/build/Release/3DBrowser.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -172,7 +172,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\deaco\Desktop\Programming\3D-Browser\CMake\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
@@ -189,10 +189,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\deaco\Desktop\Programming\3D-Browser\CMake\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\deaco\Desktop\Programming\3D-Browser\CMake\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -205,8 +205,8 @@
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>C:/Users/csowe/OneDrive/Desktop/CC++/3DBrowser/3D-Browser/CMake/MinSizeRel/3DBrowser.lib</ImportLibrary>
-      <ProgramDataBaseFile>C:/Users/csowe/OneDrive/Desktop/CC++/3DBrowser/3D-Browser/CMake/MinSizeRel/3DBrowser.pdb</ProgramDataBaseFile>
+      <ImportLibrary>C:/Users/deaco/Desktop/Programming/3D-Browser/build/MinSizeRel/3DBrowser.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/deaco/Desktop/Programming/3D-Browser/build/MinSizeRel/3DBrowser.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -215,7 +215,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\deaco\Desktop\Programming\3D-Browser\CMake\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -231,10 +231,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\deaco\Desktop\Programming\3D-Browser\CMake\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\deaco\Desktop\Programming\3D-Browser\CMake\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -247,8 +247,8 @@
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>C:/Users/csowe/OneDrive/Desktop/CC++/3DBrowser/3D-Browser/CMake/RelWithDebInfo/3DBrowser.lib</ImportLibrary>
-      <ProgramDataBaseFile>C:/Users/csowe/OneDrive/Desktop/CC++/3DBrowser/3D-Browser/CMake/RelWithDebInfo/3DBrowser.pdb</ProgramDataBaseFile>
+      <ImportLibrary>C:/Users/deaco/Desktop/Programming/3D-Browser/build/RelWithDebInfo/3DBrowser.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/deaco/Desktop/Programming/3D-Browser/build/RelWithDebInfo/3DBrowser.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -256,11 +256,11 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\CMakeLists.txt">
-      <StdOutEncoding>UTF-8</StdOutEncoding>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/csowe/OneDrive/Desktop/CC++/3DBrowser/3D-Browser/CMakeLists.txt</Message>
+    <CustomBuild Include="C:\Users\deaco\Desktop\Programming\3D-Browser\CMake\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/deaco/Desktop/Programming/3D-Browser/CMake/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-D:\CMAKE\bin\cmake.exe -SC:/Users/csowe/OneDrive/Desktop/CC++/3DBrowser/3D-Browser -BC:/Users/csowe/OneDrive/Desktop/CC++/3DBrowser/3D-Browser/CMake --check-stamp-file C:/Users/csowe/OneDrive/Desktop/CC++/3DBrowser/3D-Browser/CMake/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/deaco/Desktop/Programming/3D-Browser/CMake -BC:/Users/deaco/Desktop/Programming/3D-Browser/CMake --check-stamp-file C:/Users/deaco/Desktop/Programming/3D-Browser/CMake/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -268,12 +268,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\CMake\CMakeFiles\3.22.0-rc2\CMakeCCompiler.cmake;C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\CMake\CMakeFiles\3.22.0-rc2\CMakeCXXCompiler.cmake;C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\CMake\CMakeFiles\3.22.0-rc2\CMakeRCCompiler.cmake;C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\CMake\CMakeFiles\3.22.0-rc2\CMakeSystem.cmake;D:\CMAKE\share\cmake-3.22\Modules\CMakeCInformation.cmake;D:\CMAKE\share\cmake-3.22\Modules\CMakeCXXInformation.cmake;D:\CMAKE\share\cmake-3.22\Modules\CMakeCommonLanguageInclude.cmake;D:\CMAKE\share\cmake-3.22\Modules\CMakeGenericSystem.cmake;D:\CMAKE\share\cmake-3.22\Modules\CMakeInitializeConfigs.cmake;D:\CMAKE\share\cmake-3.22\Modules\CMakeLanguageInformation.cmake;D:\CMAKE\share\cmake-3.22\Modules\CMakeRCInformation.cmake;D:\CMAKE\share\cmake-3.22\Modules\CMakeSystemSpecificInformation.cmake;D:\CMAKE\share\cmake-3.22\Modules\CMakeSystemSpecificInitialize.cmake;D:\CMAKE\share\cmake-3.22\Modules\Compiler\CMakeCommonCompilerMacros.cmake;D:\CMAKE\share\cmake-3.22\Modules\Compiler\MSVC-C.cmake;D:\CMAKE\share\cmake-3.22\Modules\Compiler\MSVC-CXX.cmake;D:\CMAKE\share\cmake-3.22\Modules\Platform\Windows-MSVC-C.cmake;D:\CMAKE\share\cmake-3.22\Modules\Platform\Windows-MSVC-CXX.cmake;D:\CMAKE\share\cmake-3.22\Modules\Platform\Windows-MSVC.cmake;D:\CMAKE\share\cmake-3.22\Modules\Platform\Windows.cmake;D:\CMAKE\share\cmake-3.22\Modules\Platform\WindowsPaths.cmake;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\CMake\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Platform\WindowsPaths.cmake;C:\Users\deaco\Desktop\Programming\3D-Browser\CMake\CMakeFiles\3.24.2\CMakeCCompiler.cmake;C:\Users\deaco\Desktop\Programming\3D-Browser\CMake\CMakeFiles\3.24.2\CMakeCXXCompiler.cmake;C:\Users\deaco\Desktop\Programming\3D-Browser\CMake\CMakeFiles\3.24.2\CMakeRCCompiler.cmake;C:\Users\deaco\Desktop\Programming\3D-Browser\CMake\CMakeFiles\3.24.2\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\deaco\Desktop\Programming\3D-Browser\CMake\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/csowe/OneDrive/Desktop/CC++/3DBrowser/3D-Browser/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/deaco/Desktop/Programming/3D-Browser/CMake/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-D:\CMAKE\bin\cmake.exe -SC:/Users/csowe/OneDrive/Desktop/CC++/3DBrowser/3D-Browser -BC:/Users/csowe/OneDrive/Desktop/CC++/3DBrowser/3D-Browser/CMake --check-stamp-file C:/Users/csowe/OneDrive/Desktop/CC++/3DBrowser/3D-Browser/CMake/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/deaco/Desktop/Programming/3D-Browser/CMake -BC:/Users/deaco/Desktop/Programming/3D-Browser/CMake --check-stamp-file C:/Users/deaco/Desktop/Programming/3D-Browser/CMake/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -281,12 +281,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\CMake\CMakeFiles\3.22.0-rc2\CMakeCCompiler.cmake;C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\CMake\CMakeFiles\3.22.0-rc2\CMakeCXXCompiler.cmake;C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\CMake\CMakeFiles\3.22.0-rc2\CMakeRCCompiler.cmake;C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\CMake\CMakeFiles\3.22.0-rc2\CMakeSystem.cmake;D:\CMAKE\share\cmake-3.22\Modules\CMakeCInformation.cmake;D:\CMAKE\share\cmake-3.22\Modules\CMakeCXXInformation.cmake;D:\CMAKE\share\cmake-3.22\Modules\CMakeCommonLanguageInclude.cmake;D:\CMAKE\share\cmake-3.22\Modules\CMakeGenericSystem.cmake;D:\CMAKE\share\cmake-3.22\Modules\CMakeInitializeConfigs.cmake;D:\CMAKE\share\cmake-3.22\Modules\CMakeLanguageInformation.cmake;D:\CMAKE\share\cmake-3.22\Modules\CMakeRCInformation.cmake;D:\CMAKE\share\cmake-3.22\Modules\CMakeSystemSpecificInformation.cmake;D:\CMAKE\share\cmake-3.22\Modules\CMakeSystemSpecificInitialize.cmake;D:\CMAKE\share\cmake-3.22\Modules\Compiler\CMakeCommonCompilerMacros.cmake;D:\CMAKE\share\cmake-3.22\Modules\Compiler\MSVC-C.cmake;D:\CMAKE\share\cmake-3.22\Modules\Compiler\MSVC-CXX.cmake;D:\CMAKE\share\cmake-3.22\Modules\Platform\Windows-MSVC-C.cmake;D:\CMAKE\share\cmake-3.22\Modules\Platform\Windows-MSVC-CXX.cmake;D:\CMAKE\share\cmake-3.22\Modules\Platform\Windows-MSVC.cmake;D:\CMAKE\share\cmake-3.22\Modules\Platform\Windows.cmake;D:\CMAKE\share\cmake-3.22\Modules\Platform\WindowsPaths.cmake;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\CMake\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Platform\WindowsPaths.cmake;C:\Users\deaco\Desktop\Programming\3D-Browser\CMake\CMakeFiles\3.24.2\CMakeCCompiler.cmake;C:\Users\deaco\Desktop\Programming\3D-Browser\CMake\CMakeFiles\3.24.2\CMakeCXXCompiler.cmake;C:\Users\deaco\Desktop\Programming\3D-Browser\CMake\CMakeFiles\3.24.2\CMakeRCCompiler.cmake;C:\Users\deaco\Desktop\Programming\3D-Browser\CMake\CMakeFiles\3.24.2\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\deaco\Desktop\Programming\3D-Browser\CMake\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Users/csowe/OneDrive/Desktop/CC++/3DBrowser/3D-Browser/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Users/deaco/Desktop/Programming/3D-Browser/CMake/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-D:\CMAKE\bin\cmake.exe -SC:/Users/csowe/OneDrive/Desktop/CC++/3DBrowser/3D-Browser -BC:/Users/csowe/OneDrive/Desktop/CC++/3DBrowser/3D-Browser/CMake --check-stamp-file C:/Users/csowe/OneDrive/Desktop/CC++/3DBrowser/3D-Browser/CMake/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/deaco/Desktop/Programming/3D-Browser/CMake -BC:/Users/deaco/Desktop/Programming/3D-Browser/CMake --check-stamp-file C:/Users/deaco/Desktop/Programming/3D-Browser/CMake/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -294,12 +294,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\CMake\CMakeFiles\3.22.0-rc2\CMakeCCompiler.cmake;C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\CMake\CMakeFiles\3.22.0-rc2\CMakeCXXCompiler.cmake;C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\CMake\CMakeFiles\3.22.0-rc2\CMakeRCCompiler.cmake;C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\CMake\CMakeFiles\3.22.0-rc2\CMakeSystem.cmake;D:\CMAKE\share\cmake-3.22\Modules\CMakeCInformation.cmake;D:\CMAKE\share\cmake-3.22\Modules\CMakeCXXInformation.cmake;D:\CMAKE\share\cmake-3.22\Modules\CMakeCommonLanguageInclude.cmake;D:\CMAKE\share\cmake-3.22\Modules\CMakeGenericSystem.cmake;D:\CMAKE\share\cmake-3.22\Modules\CMakeInitializeConfigs.cmake;D:\CMAKE\share\cmake-3.22\Modules\CMakeLanguageInformation.cmake;D:\CMAKE\share\cmake-3.22\Modules\CMakeRCInformation.cmake;D:\CMAKE\share\cmake-3.22\Modules\CMakeSystemSpecificInformation.cmake;D:\CMAKE\share\cmake-3.22\Modules\CMakeSystemSpecificInitialize.cmake;D:\CMAKE\share\cmake-3.22\Modules\Compiler\CMakeCommonCompilerMacros.cmake;D:\CMAKE\share\cmake-3.22\Modules\Compiler\MSVC-C.cmake;D:\CMAKE\share\cmake-3.22\Modules\Compiler\MSVC-CXX.cmake;D:\CMAKE\share\cmake-3.22\Modules\Platform\Windows-MSVC-C.cmake;D:\CMAKE\share\cmake-3.22\Modules\Platform\Windows-MSVC-CXX.cmake;D:\CMAKE\share\cmake-3.22\Modules\Platform\Windows-MSVC.cmake;D:\CMAKE\share\cmake-3.22\Modules\Platform\Windows.cmake;D:\CMAKE\share\cmake-3.22\Modules\Platform\WindowsPaths.cmake;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\CMake\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Platform\WindowsPaths.cmake;C:\Users\deaco\Desktop\Programming\3D-Browser\CMake\CMakeFiles\3.24.2\CMakeCCompiler.cmake;C:\Users\deaco\Desktop\Programming\3D-Browser\CMake\CMakeFiles\3.24.2\CMakeCXXCompiler.cmake;C:\Users\deaco\Desktop\Programming\3D-Browser\CMake\CMakeFiles\3.24.2\CMakeRCCompiler.cmake;C:\Users\deaco\Desktop\Programming\3D-Browser\CMake\CMakeFiles\3.24.2\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\deaco\Desktop\Programming\3D-Browser\CMake\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Users/csowe/OneDrive/Desktop/CC++/3DBrowser/3D-Browser/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Users/deaco/Desktop/Programming/3D-Browser/CMake/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-D:\CMAKE\bin\cmake.exe -SC:/Users/csowe/OneDrive/Desktop/CC++/3DBrowser/3D-Browser -BC:/Users/csowe/OneDrive/Desktop/CC++/3DBrowser/3D-Browser/CMake --check-stamp-file C:/Users/csowe/OneDrive/Desktop/CC++/3DBrowser/3D-Browser/CMake/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/deaco/Desktop/Programming/3D-Browser/CMake -BC:/Users/deaco/Desktop/Programming/3D-Browser/CMake --check-stamp-file C:/Users/deaco/Desktop/Programming/3D-Browser/CMake/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -307,20 +307,20 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\CMake\CMakeFiles\3.22.0-rc2\CMakeCCompiler.cmake;C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\CMake\CMakeFiles\3.22.0-rc2\CMakeCXXCompiler.cmake;C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\CMake\CMakeFiles\3.22.0-rc2\CMakeRCCompiler.cmake;C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\CMake\CMakeFiles\3.22.0-rc2\CMakeSystem.cmake;D:\CMAKE\share\cmake-3.22\Modules\CMakeCInformation.cmake;D:\CMAKE\share\cmake-3.22\Modules\CMakeCXXInformation.cmake;D:\CMAKE\share\cmake-3.22\Modules\CMakeCommonLanguageInclude.cmake;D:\CMAKE\share\cmake-3.22\Modules\CMakeGenericSystem.cmake;D:\CMAKE\share\cmake-3.22\Modules\CMakeInitializeConfigs.cmake;D:\CMAKE\share\cmake-3.22\Modules\CMakeLanguageInformation.cmake;D:\CMAKE\share\cmake-3.22\Modules\CMakeRCInformation.cmake;D:\CMAKE\share\cmake-3.22\Modules\CMakeSystemSpecificInformation.cmake;D:\CMAKE\share\cmake-3.22\Modules\CMakeSystemSpecificInitialize.cmake;D:\CMAKE\share\cmake-3.22\Modules\Compiler\CMakeCommonCompilerMacros.cmake;D:\CMAKE\share\cmake-3.22\Modules\Compiler\MSVC-C.cmake;D:\CMAKE\share\cmake-3.22\Modules\Compiler\MSVC-CXX.cmake;D:\CMAKE\share\cmake-3.22\Modules\Platform\Windows-MSVC-C.cmake;D:\CMAKE\share\cmake-3.22\Modules\Platform\Windows-MSVC-CXX.cmake;D:\CMAKE\share\cmake-3.22\Modules\Platform\Windows-MSVC.cmake;D:\CMAKE\share\cmake-3.22\Modules\Platform\Windows.cmake;D:\CMAKE\share\cmake-3.22\Modules\Platform\WindowsPaths.cmake;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\CMake\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Platform\WindowsPaths.cmake;C:\Users\deaco\Desktop\Programming\3D-Browser\CMake\CMakeFiles\3.24.2\CMakeCCompiler.cmake;C:\Users\deaco\Desktop\Programming\3D-Browser\CMake\CMakeFiles\3.24.2\CMakeCXXCompiler.cmake;C:\Users\deaco\Desktop\Programming\3D-Browser\CMake\CMakeFiles\3.24.2\CMakeRCCompiler.cmake;C:\Users\deaco\Desktop\Programming\3D-Browser\CMake\CMakeFiles\3.24.2\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\deaco\Desktop\Programming\3D-Browser\CMake\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\src\main.cpp" />
-    <ClCompile Include="C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\src\glad.c" />
-    <ClCompile Include="C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\src\shader.cpp" />
-    <ClCompile Include="C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\src\memory.cpp" />
+    <ClCompile Include="C:\Users\deaco\Desktop\Programming\3D-Browser\src\main.cpp" />
+    <ClCompile Include="C:\Users\deaco\Desktop\Programming\3D-Browser\src\glad.c" />
+    <ClCompile Include="C:\Users\deaco\Desktop\Programming\3D-Browser\src\shader.cpp" />
+    <ClCompile Include="C:\Users\deaco\Desktop\Programming\3D-Browser\src\memory.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\CMake\ZERO_CHECK.vcxproj">
-      <Project>{8027DB04-DD18-3151-90BE-817258F03BE0}</Project>
+    <ProjectReference Include="C:\Users\deaco\Desktop\Programming\3D-Browser\CMake\ZERO_CHECK.vcxproj">
+      <Project>{ED2897E5-1131-34C9-B569-BE4672164DD6}</Project>
       <Name>ZERO_CHECK</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>

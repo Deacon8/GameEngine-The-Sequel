@@ -1,6 +1,6 @@
-^C:\USERS\CSOWE\ONEDRIVE\DESKTOP\CC++\3DBROWSER\3D-BROWSER\CMAKELISTS.TXT
+^C:\USERS\DEACO\DESKTOP\PROGRAMMING\3D-BROWSER\CMAKE\CMAKELISTS.TXT
 setlocal
-D:\CMAKE\bin\cmake.exe -SC:/Users/csowe/OneDrive/Desktop/CC++/3DBrowser/3D-Browser -BC:/Users/csowe/OneDrive/Desktop/CC++/3DBrowser/3D-Browser/CMake --check-stamp-file C:/Users/csowe/OneDrive/Desktop/CC++/3DBrowser/3D-Browser/CMake/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/deaco/Desktop/Programming/3D-Browser/CMake -BC:/Users/deaco/Desktop/Programming/3D-Browser/CMake --check-stamp-file C:/Users/deaco/Desktop/Programming/3D-Browser/CMake/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone

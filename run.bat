@@ -1,3 +1,3 @@
-cd CMake/Debug
+cd build/Debug
 3DBrowser.exe
-cd ../..
+cd ../
