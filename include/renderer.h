@@ -10,7 +10,7 @@ struct Model
     unsigned int verticesize;
 
     unsigned int* indices;
-    unsigned int indicesize;
+    unsigned int indicesize; 
 };
 
 Model LoadModel()
