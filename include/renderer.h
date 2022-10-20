@@ -24,13 +24,12 @@ Model LoadModel()
     {
 		result = cgltf_load_buffers(&options, data, "res/models/duck.gltf");
 		result = cgltf_validate(data);
-
-	    printf("Result: %d\n", result);
+        
 		printf("Type: %u\n", data->file_type);
 		printf("Meshes: %u\n", (unsigned)data->meshes_count);
-        model.verticesize = data->buffers->size;
-        model.vertices = (float*)malloc(model.verticesize * sizeof(float));
-        model.indices = (unsigned int*)malloc(model.indicesize * sizeof(unsigned int));
+        //model.verticesize = data->buffers->size;
+        //model.vertices = (float*)malloc(model.verticesize * sizeof(float));
+        //model.indices = (unsigned int*)malloc(model.indicesize * sizeof(unsigned int));
 	    cgltf_free(data);
         return model;
     }
