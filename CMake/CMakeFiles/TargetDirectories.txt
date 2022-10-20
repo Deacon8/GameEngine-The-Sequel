@@ -1,3 +1,0 @@
-C:/Users/csowe/OneDrive/Desktop/CC++/3DBrowser/3D-Browser/CMake/CMakeFiles/3DBrowser.dir
-C:/Users/csowe/OneDrive/Desktop/CC++/3DBrowser/3D-Browser/CMake/CMakeFiles/ALL_BUILD.dir
-C:/Users/csowe/OneDrive/Desktop/CC++/3DBrowser/3D-Browser/CMake/CMakeFiles/ZERO_CHECK.dir
