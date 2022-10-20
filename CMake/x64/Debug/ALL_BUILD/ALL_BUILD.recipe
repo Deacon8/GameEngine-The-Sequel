@@ -1,17 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project>
-  <ProjectOutputs>
-    <ProjectOutput>
-      <FullPath>C:\Users\deaco\Desktop\Programming\3D-Browser\CMake\x64\Debug\ZERO_CHECK</FullPath>
-    </ProjectOutput>
-    <ProjectOutput>
-      <FullPath>C:\Users\deaco\Desktop\Programming\3D-Browser\build\Debug\3DBrowser.exe</FullPath>
-    </ProjectOutput>
-    <ProjectOutput>
-      <FullPath>C:\Users\deaco\Desktop\Programming\3D-Browser\CMake\x64\Debug\ALL_BUILD</FullPath>
-    </ProjectOutput>
-  </ProjectOutputs>
-  <ContentFiles />
-  <SatelliteDlls />
-  <NonRecipeFileRefs />
+  <ProjectOutputs>C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\CMake\x64\Debug\ZERO_CHECK;C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\build\Debug\3DBrowser.exe;C:\Users\csowe\OneDrive\Desktop\CC++\3DBrowser\3D-Browser\CMake\x64\Debug\ALL_BUILD</ProjectOutputs>
+  <ContentFiles></ContentFiles>
+  <SatelliteDlls></SatelliteDlls>
+  <NonRecipeFileRefs></NonRecipeFileRefs>
 </Project>

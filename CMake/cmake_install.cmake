@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/deaco/Desktop/Programming/3D-Browser/CMake
+# Install script for directory: C:/Users/csowe/OneDrive/Desktop/CC++/3DBrowser/3D-Browser/CMake
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/deaco/Desktop/Programming/3D-Browser/CMake/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/csowe/OneDrive/Desktop/CC++/3DBrowser/3D-Browser/CMake/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
