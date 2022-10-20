@@ -15,6 +15,8 @@
 Window mainWindow;
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 
+void mouseMovement(double, double);
+
 // Enable depth test??
 
 int main( int argc, char* args[] )
@@ -67,45 +69,65 @@ int main( int argc, char* args[] )
         LAST = NOW;
         NOW = SDL_GetPerformanceCounter();
         deltaTime = (double)((NOW - LAST) / (double)SDL_GetPerformanceFrequency() );
-
+        //std::cout << deltaTime << std::endl;
         //Input
         SDL_Event Event;
         while (SDL_PollEvent(&Event))
+        {   
+            switch(Event.type)
+            {
+                case SDL_KEYDOWN: 
+                    switch (Event.key.keysym.sym)
+                    {
+                        case SDLK_ESCAPE:
+                            Running = 0;
+                            break;
+                        case 'f':
+                            FullScreen = !FullScreen;
+                            if (FullScreen)
+                            {
+                                SDL_SetWindowFullscreen(mainWindow.window, mainWindow.flags | SDL_WINDOW_FULLSCREEN_DESKTOP);
+                            }
+                            else
+                            {
+                                SDL_SetWindowFullscreen(mainWindow.window, mainWindow.flags);
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                break;
+                case SDL_QUIT: Running = 0;
+                break;
+                case SDL_MOUSEMOTION: camera.ProcessMouseMovement(Event.motion.xrel, -Event.motion.yrel); //mouseMovement(Event.motion.x, Event.motion.y);
+                break;
+
+            }
+        }
+        const Uint8* keystate = SDL_GetKeyboardState(NULL);
+        if(keystate[SDL_SCANCODE_D])
         {
-            if (Event.type == SDL_KEYDOWN)
-            {
-                switch (Event.key.keysym.sym)
-                {
-                case SDLK_ESCAPE:
-                    Running = 0;
-                    break;
-                case 'f':
-                    FullScreen = !FullScreen;
-                    if (FullScreen)
-                    {
-                    SDL_SetWindowFullscreen(mainWindow.window, mainWindow.flags | SDL_WINDOW_FULLSCREEN_DESKTOP);
-                    }
-                    else
-                    {
-                    SDL_SetWindowFullscreen(mainWindow.window, mainWindow.flags);
-                    }
-                    break;
-                case 'w': camera.ProcessKeyboard(FORWARD, deltaTime);
-                    break;
-                case 'a': camera.ProcessKeyboard(LEFT, deltaTime);
-                    break;
-                case 's': camera.ProcessKeyboard(BACKWARD, deltaTime);
-                    break;
-                case 'd': camera.ProcessKeyboard(RIGHT, deltaTime);
-                    break;
-                default:
-                    break;
-                }
-            }
-            else if (Event.type == SDL_QUIT)
-            {
-                Running = 0;
-            }
+            camera.ProcessKeyboard(RIGHT, deltaTime);
+        }
+        if(keystate[SDL_SCANCODE_A])
+        {
+            camera.ProcessKeyboard(LEFT, deltaTime);
+        }
+        if(keystate[SDL_SCANCODE_W])
+        {
+            camera.ProcessKeyboard(FORWARD, deltaTime);
+        }
+        if(keystate[SDL_SCANCODE_S])
+        {
+            camera.ProcessKeyboard(BACKWARD, deltaTime);
+        }
+        if(keystate[SDL_SCANCODE_SPACE])
+        {
+            camera.ProcessKeyboard(UP, deltaTime);
+        }
+        if(keystate[SDL_SCANCODE_LSHIFT])
+        {
+            camera.ProcessKeyboard(DOWN, deltaTime);
         }
 
     //Prerender

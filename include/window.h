@@ -8,8 +8,8 @@ struct Window
     SDL_Window* window = NULL;
     SDL_Surface* screenSurface = NULL;
     SDL_GLContext context;
-    int SCREEN_WIDTH = 640;
-    int SCREEN_HEIGHT = 480;
+    int SCREEN_WIDTH = 800;
+    int SCREEN_HEIGHT = 600;
     int flags;
 };typedef struct Window Window;
 
@@ -60,7 +60,8 @@ Window InitWindow()
         std::cout << "Warning: Unable to set VSync! SDL Error: %s\n";
         std::cout << SDL_GetError();
     }
-
+    SDL_ShowCursor(SDL_DISABLE);
+    SDL_SetRelativeMouseMode(SDL_TRUE);
     //Make window white
     window.screenSurface = SDL_GetWindowSurface(window.window);
     SDL_FillRect( window.screenSurface, NULL, SDL_MapRGB( window.screenSurface->format, 0xFF, 0xFF, 0xFF ) );
