@@ -1,3 +1,4 @@
+//Whelp hope this isn't bad
 /**
  * cgltf - a single-file glTF 2.0 parser written in C99.
  *

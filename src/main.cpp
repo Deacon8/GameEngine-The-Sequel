@@ -25,7 +25,7 @@ int main( int argc, char* args[] )
     mainWindow = InitWindow();
     //Load Shader
     Shader shader = LazyLoadShader("res/shaders/vertex.vert", "res/shaders/fragment.frag");
-    //LoadModel();
+    LoadModel();
     float vertices[] = {
          0.5f,  0.5f, 0.0f,  // top right
          0.5f, -0.5f, 0.0f,  // bottom right
