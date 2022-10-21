@@ -38,22 +38,23 @@ Model LoadModel()
         //1 Normal
         //2 Position
         //3 TexCoords
-        char* file = "res/models/";
+        char file[100] = "res/models/";
         strcat(file, data->buffers->uri);
         FILE *buffer = fopen(file, "rb");
+
         model.indicesize = data->accessors[0].count;
         model.indices = (unsigned short*)malloc(model.indicesize * sizeof(unsigned short));
         fseek(buffer, data->accessors[0].offset, SEEK_SET);
         fread(model.indices, sizeof(unsigned short), model.indicesize, buffer);
 
-        model.verticesize = data->accessors[1].count;
+        model.verticesize = data->accessors[2].count;
         model.vertices = (float*)malloc(model.verticesize * sizeof(float));
-        fseek(buffer, data->accessors[1].offset, SEEK_SET);
+        fseek(buffer, data->accessors[2].offset, SEEK_SET);
         fread(model.vertices, sizeof(unsigned short), model.verticesize, buffer);
 
-        model.normalsize = data->accessors[2].count;
+        model.normalsize = data->accessors[1].count;
         model.normals = (float*)malloc(model.normalsize * sizeof(float));
-        fseek(buffer, data->accessors[2].offset, SEEK_SET);
+        fseek(buffer, data->accessors[1].offset, SEEK_SET);
         fread(model.normals, sizeof(unsigned short), model.normalsize, buffer);
 
         model.texcoordsize = data->accessors[3].count;
@@ -61,8 +62,10 @@ Model LoadModel()
         fseek(buffer, data->accessors[3].offset, SEEK_SET);
         fread(model.texcoords, sizeof(unsigned short), model.texcoordsize, buffer);
 
-        printf("%u", model.verticesize);
-
+        for(int i = 0; i < 100; i++)
+        {
+            //printf("%hu\n", model.indices[i]);
+        }
 	    cgltf_free(data);
         return model;
     }

@@ -25,17 +25,8 @@ int main( int argc, char* args[] )
     mainWindow = InitWindow();
     //Load Shader
     Shader shader = LazyLoadShader("res/shaders/vertex.vert", "res/shaders/fragment.frag");
-    LoadModel();
-    float vertices[] = {
-         0.5f,  0.5f, 0.0f,  // top right
-         0.5f, -0.5f, 0.0f,  // bottom right
-        -0.5f, -0.5f, 0.0f,  // bottom left
-        -0.5f,  0.5f, 0.0f   // top left 
-    };
-    unsigned int indices[] = {  // note that we start from 0!
-        0, 1, 3,  // first Triangle
-        1, 2, 3   // second Triangle
-    };
+
+    Model duck = LoadModel();
 
     unsigned int VBO, VAO, EBO;
     glGenVertexArrays(1, &VAO);
@@ -44,10 +35,10 @@ int main( int argc, char* args[] )
     glBindVertexArray(VAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, duck.verticesize * sizeof(float), duck.vertices, GL_STATIC_DRAW);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, duck.indicesize * sizeof(unsigned short), duck.indices, GL_STATIC_DRAW);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
@@ -55,8 +46,6 @@ int main( int argc, char* args[] )
     glBindBuffer(GL_ARRAY_BUFFER, 0); 
 
     glBindVertexArray(0); 
-
-
 
     Uint64 NOW = SDL_GetPerformanceCounter();
     Uint64 LAST = 0;
@@ -91,7 +80,7 @@ int main( int argc, char* args[] )
 
         glUseProgram(shader.ShaderProgram);
         glBindVertexArray(VAO);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, duck.indicesize, GL_UNSIGNED_SHORT, duck.indices);
 
         //Last Rendering thingy
         SDL_GL_SwapWindow(mainWindow.window);
