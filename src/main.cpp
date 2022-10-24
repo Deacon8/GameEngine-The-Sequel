@@ -4,6 +4,11 @@
 #include "shader.h"
 //Separate into src file
 #include "camera.h"
+
+//#define TINYGLTF_IMPLEMENTATION
+//#define STB_IMAGE_IMPLEMENTATION
+//#define STB_IMAGE_WRITE_IMPLEMENTATION
+//#include "gltf/tiny_gltf.h"
 #include "renderer.h"
 
 #include <glm/glm.hpp>
@@ -26,26 +31,16 @@ int main( int argc, char* args[] )
     //Load Shader
     Shader shader = LazyLoadShader("res/shaders/vertex.vert", "res/shaders/fragment.frag");
 
-    Model duck = LoadModel();
+    tinygltf::Model duck;
+    if (!loadModel(duck, "res/models/Duck.gltf")) return -1;
 
-    unsigned int VBO, VAO, EBO;
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-    glGenBuffers(1, &EBO);
-    glBindVertexArray(VAO);
+    std::pair<GLuint, std::map<int, GLuint>> vaoAndEbos = bindModel(duck);
 
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, duck.verticesize * sizeof(float), duck.vertices, GL_STATIC_DRAW);
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, duck.indicesize * sizeof(unsigned short), duck.indices, GL_STATIC_DRAW);
-
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-
-    glBindBuffer(GL_ARRAY_BUFFER, 0); 
-
-    glBindVertexArray(0); 
+      // Model matrix : an identity matrix (model will be at the origin)
+    glm::mat4 model_mat = glm::mat4(1.0f);
+    glm::mat4 model_rot = glm::mat4(1.0f);
+    glm::vec3 model_pos = glm::vec3(-3, 0, -3);
+    glm::vec3 model_scale = glm::vec3(0.01f, 0.01f, 0.01f);
 
     Uint64 NOW = SDL_GetPerformanceCounter();
     Uint64 LAST = 0;
@@ -75,12 +70,15 @@ int main( int argc, char* args[] )
         shader.SetUniformMat4("view", view);
 
         //Per object Basis
-        glm::mat4 model = glm::mat4(1.0);
-        shader.SetUniformMat4("model", model);
+        glm::mat4 trans = glm::translate(glm::mat4(1.0f), model_pos);  // reposition model
+        model_rot = glm::rotate(model_rot, glm::radians(0.8f), glm::vec3(0, 1, 0));  // rotate model on y axis
+        glm::mat4 scale = glm::scale(glm::mat4(1.0f), model_scale);
+        model_mat = trans * model_rot * scale;
 
-        glUseProgram(shader.ShaderProgram);
-        glBindVertexArray(VAO);
-        glDrawElements(GL_TRIANGLES, duck.indicesize, GL_UNSIGNED_SHORT, duck.indices);
+        glm::mat4 model = glm::mat4(1.0);
+        shader.SetUniformMat4("model", model_mat);
+
+        drawModel(vaoAndEbos, duck);
 
         //Last Rendering thingy
         SDL_GL_SwapWindow(mainWindow.window);
@@ -95,7 +93,7 @@ int main( int argc, char* args[] )
 
 
 void ProcessInput(float deltaTime)
-{
+{       
         SDL_Event Event;
         while (SDL_PollEvent(&Event))
         {   
