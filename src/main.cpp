@@ -5,15 +5,16 @@
 //Separate into src file
 #include "camera.h"
 
-//#define TINYGLTF_IMPLEMENTATION
-//#define STB_IMAGE_IMPLEMENTATION
-//#define STB_IMAGE_WRITE_IMPLEMENTATION
-//#include "gltf/tiny_gltf.h"
+/*#define TINYGLTF_IMPLEMENTATION
+#define STB_IMAGE_IMPLEMENTATION
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include "gltf/tiny_gltf.h"*/
 #include "renderer.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include "transform.h"
 
 #include "SDL2/SDL.h"
 #include "glad/glad.h"
@@ -21,7 +22,6 @@
 Window mainWindow;
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 
-// Enable depth test??
 void ProcessInput(float);
 
 int main( int argc, char* args[] )
@@ -29,22 +29,25 @@ int main( int argc, char* args[] )
     //Load Window
     mainWindow = InitWindow();
     //Load Shader
-    Shader shader = LazyLoadShader("res/shaders/vertex.vert", "res/shaders/fragment.frag");
+    Shader shader = LazyLoadShader("res/shaders/sun.vert", "res/shaders/sun.frag");
 
-    tinygltf::Model duck;
+    Model duck;
     if (!loadModel(duck, "res/models/Duck.gltf")) return -1;
 
-    std::pair<GLuint, std::map<int, GLuint>> vaoAndEbos = bindModel(duck);
+    Transform transform;
 
-      // Model matrix : an identity matrix (model will be at the origin)
-    glm::mat4 model_mat = glm::mat4(1.0f);
-    glm::mat4 model_rot = glm::mat4(1.0f);
-    glm::vec3 model_pos = glm::vec3(-3, 0, -3);
-    glm::vec3 model_scale = glm::vec3(0.01f, 0.01f, 0.01f);
+    glm::vec3 sun_position = glm::vec3(3.0, 10.0, -5.0);
+    glm::vec3 sun_color = glm::vec3(1.0);
 
     Uint64 NOW = SDL_GetPerformanceCounter();
     Uint64 LAST = 0;
     float deltaTime = 0;
+
+    glEnable(GL_DEPTH_TEST);
+    //glDepthFunc(GL_LESS);
+
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_BLEND);
 
     //Event Loop
     while (mainWindow.Running)
@@ -60,7 +63,7 @@ int main( int argc, char* args[] )
         //Prerender
         glViewport(0, 0, mainWindow.SCREEN_WIDTH, mainWindow.SCREEN_HEIGHT);
         glClearColor(0.3f, 0.2f, 0.8f, 0.f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         //Render
         glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)mainWindow.SCREEN_WIDTH / (float)mainWindow.SCREEN_HEIGHT, 0.1f, 100.0f);
@@ -70,15 +73,21 @@ int main( int argc, char* args[] )
         shader.SetUniformMat4("view", view);
 
         //Per object Basis
-        glm::mat4 trans = glm::translate(glm::mat4(1.0f), model_pos);  // reposition model
-        model_rot = glm::rotate(model_rot, glm::radians(0.8f), glm::vec3(0, 1, 0));  // rotate model on y axis
-        glm::mat4 scale = glm::scale(glm::mat4(1.0f), model_scale);
-        model_mat = trans * model_rot * scale;
+        glm::mat4 trans = glm::translate(glm::mat4(1.0f), transform.position);  // reposition model
+        transform.rotation = glm::rotate(transform.rotation, glm::radians(0.8f), glm::vec3(0, 1, 0));  // rotate model on y axis
+        transform.scale = glm::vec3(0.01f, 0.01f, 0.01f);
+        glm::mat4 scale = glm::scale(glm::mat4(1.0f), transform.scale);
+        transform.matrix = trans * transform.rotation * scale;
 
         glm::mat4 model = glm::mat4(1.0);
-        shader.SetUniformMat4("model", model_mat);
+        shader.SetUniformMat4("model", transform.matrix);
 
-        drawModel(vaoAndEbos, duck);
+        //TODO - Shader Debugging not working???
+        //Finding position every frame??
+        shader.SetUniformVec3("sun_color", sun_color);
+        shader.SetUniformVec3("sun_position", sun_position);
+
+        drawModel(duck);
 
         //Last Rendering thingy
         SDL_GL_SwapWindow(mainWindow.window);

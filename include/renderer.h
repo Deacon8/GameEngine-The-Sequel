@@ -12,30 +12,45 @@
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
-bool loadModel(tinygltf::Model &model, const char *filename) {
+struct Model
+{ 
+  tinygltf::Model &gltf;
+  std::pair<GLuint, std::map<int, GLuint>> vaoAndEbos;
+};
+
+//Model Loading
+
+bool loadModel(Model &model, const char *filename) 
+{
   tinygltf::TinyGLTF loader;
   std::string err;
   std::string warn;
 
-  bool res = loader.LoadASCIIFromFile(&model, &err, &warn, filename);
-  if (!warn.empty()) {
+  bool res = loader.LoadASCIIFromFile(&model.gltf, &err, &warn, filename);
+  if (!warn.empty()) 
+  {
     std::cout << "WARN: " << warn << std::endl;
   }
 
-  if (!err.empty()) {
+  if (!err.empty()) 
+  {
     std::cout << "ERR: " << err << std::endl;
   }
 
   if (!res)
+  {
     std::cout << "Failed to load glTF: " << filename << std::endl;
+  }
   else
+  {
     std::cout << "Loaded glTF: " << filename << std::endl;
-
+  }
+  model.vaoAndEbos = bindModel(model.gltf);
   return res;
 }
 
-void bindMesh(std::map<int, GLuint>& vbos,
-              tinygltf::Model &model, tinygltf::Mesh &mesh) {
+void bindMesh(std::map<int, GLuint>& vbos, tinygltf::Model &model, tinygltf::Mesh &mesh) 
+{
   for (size_t i = 0; i < model.bufferViews.size(); ++i) {
     const tinygltf::BufferView &bufferView = model.bufferViews[i];
     if (bufferView.target == 0) {  // TODO impl drawarrays
@@ -205,19 +220,8 @@ void drawModelNodes(const std::pair<GLuint, std::map<int, GLuint>>& vaoAndEbos,
     drawModelNodes(vaoAndEbos, model, model.nodes[node.children[i]]);
   }
 }
-void drawModel(const std::pair<GLuint, std::map<int, GLuint>>& vaoAndEbos,
-               tinygltf::Model &model) {
-  glBindVertexArray(vaoAndEbos.first);
 
-  const tinygltf::Scene &scene = model.scenes[model.defaultScene];
-  for (size_t i = 0; i < scene.nodes.size(); ++i) {
-    drawModelNodes(vaoAndEbos, model, model.nodes[scene.nodes[i]]);
-  }
-
-  glBindVertexArray(0);
-}
-
-void dbgModel(tinygltf::Model &model) {
+void debugModel(tinygltf::Model &model) {
   for (auto &mesh : model.meshes) {
     std::cout << "mesh : " << mesh.name << std::endl;
     for (auto &primitive : mesh.primitives) {
@@ -248,6 +252,19 @@ void dbgModel(tinygltf::Model &model) {
       }
     }
   }
+}
+
+//Rendering
+
+void drawModel(Model model) 
+{ 
+  glBindVertexArray(model.vaoAndEbos.first);
+  const tinygltf::Scene &scene = model.gltf.scenes[model.gltf.defaultScene];
+  for (size_t i = 0; i < scene.nodes.size(); ++i) {
+    drawModelNodes(model.vaoAndEbos, model.gltf, model.gltf.nodes[scene.nodes[i]]);
+  }
+
+  glBindVertexArray(0);
 }
 
 
