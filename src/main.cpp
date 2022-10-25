@@ -19,6 +19,7 @@
 #include "SDL2/SDL.h"
 #include "glad/glad.h"
 
+//Big stuff
 Window mainWindow;
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 
@@ -30,35 +31,21 @@ int main( int argc, char* args[] )
     mainWindow = InitWindow();
     //Load Shader
     Shader shader = LazyLoadShader("res/shaders/sun.vert", "res/shaders/sun.frag");
-
-    Model duck;
-    if (!loadModel(duck, "res/models/Duck.gltf")) return -1;
-
+    //Load Model
+    Model duck = loadModel("res/models/Duck.gltf");
+    //Create Transform
     Transform transform;
 
     glm::vec3 sun_position = glm::vec3(3.0, 10.0, -5.0);
     glm::vec3 sun_color = glm::vec3(1.0);
 
-    Uint64 NOW = SDL_GetPerformanceCounter();
-    Uint64 LAST = 0;
-    float deltaTime = 0;
-
-    glEnable(GL_DEPTH_TEST);
-    //glDepthFunc(GL_LESS);
-
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glEnable(GL_BLEND);
-
     //Event Loop
     while (mainWindow.Running)
     {   
-        //Deltatime
-        LAST = NOW;
-        NOW = SDL_GetPerformanceCounter();
-        deltaTime = (float)((NOW - LAST) / (float)SDL_GetPerformanceFrequency() );
+        mainWindow.Tick();
 
         //Input
-        ProcessInput(deltaTime);
+        ProcessInput(mainWindow.deltaTime);
 
         //Prerender
         glViewport(0, 0, mainWindow.SCREEN_WIDTH, mainWindow.SCREEN_HEIGHT);
@@ -72,15 +59,8 @@ int main( int argc, char* args[] )
         glm::mat4 view = camera.GetViewMatrix();
         shader.SetUniformMat4("view", view);
 
-        //Per object Basis
-        glm::mat4 trans = glm::translate(glm::mat4(1.0f), transform.position);  // reposition model
-        transform.rotation = glm::rotate(transform.rotation, glm::radians(0.8f), glm::vec3(0, 1, 0));  // rotate model on y axis
-        transform.scale = glm::vec3(0.01f, 0.01f, 0.01f);
-        glm::mat4 scale = glm::scale(glm::mat4(1.0f), transform.scale);
-        transform.matrix = trans * transform.rotation * scale;
-
         glm::mat4 model = glm::mat4(1.0);
-        shader.SetUniformMat4("model", transform.matrix);
+        shader.SetUniformMat4("model", transform.GetMatrix());
 
         //TODO - Shader Debugging not working???
         //Finding position every frame??

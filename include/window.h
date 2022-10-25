@@ -13,6 +13,18 @@ struct Window
     int flags;
     bool Running = 1;
     bool FullScreen = 0;
+
+    //Deltatime
+    Uint64 NOW = SDL_GetPerformanceCounter();
+    Uint64 LAST = 0;
+    float deltaTime = 0;
+
+    void Tick()
+    {
+        LAST = NOW;
+        NOW = SDL_GetPerformanceCounter();
+        deltaTime = (float)((NOW - LAST) / (float)SDL_GetPerformanceFrequency() );
+    }
 };typedef struct Window Window;
 
 Window InitWindow()
@@ -55,6 +67,12 @@ Window InitWindow()
         std::cout << "Failed to initialize GLAD" << std::endl;
         std::cout << SDL_GetError();
     }    
+
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
+
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_BLEND);
 
     //Use Vsync
     if( SDL_GL_SetSwapInterval( 1 ) < 0 )

@@ -14,17 +14,19 @@
 
 struct Model
 { 
-  tinygltf::Model &gltf;
+  tinygltf::Model gltf;
   std::pair<GLuint, std::map<int, GLuint>> vaoAndEbos;
 };
 
 //Model Loading
-
-bool loadModel(Model &model, const char *filename) 
+std::pair<GLuint, std::map<int, GLuint>> bindModel(tinygltf::Model &model);
+Model loadModel(const char *filename) 
 {
   tinygltf::TinyGLTF loader;
   std::string err;
   std::string warn;
+
+  Model model;
 
   bool res = loader.LoadASCIIFromFile(&model.gltf, &err, &warn, filename);
   if (!warn.empty()) 
@@ -46,7 +48,7 @@ bool loadModel(Model &model, const char *filename)
     std::cout << "Loaded glTF: " << filename << std::endl;
   }
   model.vaoAndEbos = bindModel(model.gltf);
-  return res;
+  return model;
 }
 
 void bindMesh(std::map<int, GLuint>& vbos, tinygltf::Model &model, tinygltf::Mesh &mesh) 
