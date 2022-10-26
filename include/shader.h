@@ -1,11 +1,18 @@
 #pragma once
 #include <glm/glm.hpp>
+
 struct Shader
 {	
 	unsigned int VertexShader;
 	unsigned int FragmentShader;
 	
 	unsigned int ShaderProgram;
+
+    //Uniforms
+    void* uniforms;
+    char** unames;
+    size_t* upositions;
+    unsigned short ucount;
 
     //Possibly combine at some point
     unsigned int LoadVertexShader(const char* source);
@@ -21,7 +28,6 @@ struct Shader
 
     void SetUniformSampler2D(const char* name, unsigned int unit);
 };
-typedef struct Shader Shader;
 
 void LoadShaderSource(char* destination, char* path);
 Shader LazyLoadShader(char* VertexShaderPath, char* FragmentShaderPath);

@@ -31,13 +31,15 @@ int main( int argc, char* args[] )
     mainWindow = InitWindow();
     //Load Shader
     Shader shader = LazyLoadShader("res/shaders/sun.vert", "res/shaders/sun.frag");
+    shader.uniforms = malloc(3 * sizeof(glm::mat4) + 2 * sizeof(glm::vec3));
+    //shader.unames;
     //Load Model
-    Model duck = loadModel("res/models/Duck.gltf");
+    Model duck = loadModel("res/models/duck.gltf");
     //Create Transform
     Transform transform;
 
     glm::vec3 sun_position = glm::vec3(3.0, 10.0, -5.0);
-    glm::vec3 sun_color = glm::vec3(1.0);
+    glm::vec3 sun_color = glm::vec3(1.0, 1.0, 1.0);
 
     //Event Loop
     while (mainWindow.Running)
@@ -52,6 +54,7 @@ int main( int argc, char* args[] )
         glClearColor(0.3f, 0.2f, 0.8f, 0.f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        //How to abstract shaders???
         //Render
         glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)mainWindow.SCREEN_WIDTH / (float)mainWindow.SCREEN_HEIGHT, 0.1f, 100.0f);
         shader.SetUniformMat4("projection", projection);
@@ -60,6 +63,8 @@ int main( int argc, char* args[] )
         shader.SetUniformMat4("view", view);
 
         glm::mat4 model = glm::mat4(1.0);
+        //transform.scale = glm::vec3(1.0f, 1.0f, 1.0f);
+        transform.scale = glm::vec3(0.01f, 0.01f, 0.01f);
         shader.SetUniformMat4("model", transform.GetMatrix());
 
         //TODO - Shader Debugging not working???
@@ -67,7 +72,7 @@ int main( int argc, char* args[] )
         shader.SetUniformVec3("sun_color", sun_color);
         shader.SetUniformVec3("sun_position", sun_position);
 
-        drawModel(duck);
+        DrawObject(duck);
 
         //Last Rendering thingy
         SDL_GL_SwapWindow(mainWindow.window);

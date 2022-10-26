@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <string.h>
 
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -27,8 +28,15 @@ Model loadModel(const char *filename)
   std::string warn;
 
   Model model;
-
-  bool res = loader.LoadASCIIFromFile(&model.gltf, &err, &warn, filename);
+  bool res; 
+  if(strrchr(filename, '.')[3] == 'b')
+  {
+    res = loader.LoadBinaryFromFile(&model.gltf, &err, &warn, filename);
+  }
+  else
+  {
+    res = loader.LoadASCIIFromFile(&model.gltf, &err, &warn, filename);
+  }
   if (!warn.empty()) 
   {
     std::cout << "WARN: " << warn << std::endl;
@@ -69,16 +77,16 @@ void bindMesh(std::map<int, GLuint>& vbos, tinygltf::Model &model, tinygltf::Mes
     }
 
     const tinygltf::Buffer &buffer = model.buffers[bufferView.buffer];
-    std::cout << "bufferview.target " << bufferView.target << std::endl;
+    //std::cout << "bufferview.target " << bufferView.target << std::endl;
 
     GLuint vbo;
     glGenBuffers(1, &vbo);
     vbos[i] = vbo;
     glBindBuffer(bufferView.target, vbo);
 
-    std::cout << "buffer.data.size = " << buffer.data.size()
-              << ", bufferview.byteOffset = " << bufferView.byteOffset
-              << std::endl;
+    //std::cout << "buffer.data.size = " << buffer.data.size()
+              //<< ", bufferview.byteOffset = " << bufferView.byteOffset
+              //<< std::endl;
 
     glBufferData(bufferView.target, bufferView.byteLength,
                  &buffer.data.at(0) + bufferView.byteOffset, GL_STATIC_DRAW);
@@ -258,8 +266,11 @@ void debugModel(tinygltf::Model &model) {
 
 //Rendering
 
-void drawModel(Model model) 
-{ 
+void DrawObject(Model model) 
+{   
+  //Set Shader Uniforms
+  
+  //Draw Model
   glBindVertexArray(model.vaoAndEbos.first);
   const tinygltf::Scene &scene = model.gltf.scenes[model.gltf.defaultScene];
   for (size_t i = 0; i < scene.nodes.size(); ++i) {

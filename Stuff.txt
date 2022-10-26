@@ -1,0 +1,18 @@
+
+
+Shader Implementation
+In markup have uniforms???
+
+ShaderUniforms Struct
+pointer to ShaderUniforms in Shader
+
+
+Markup Implementation
+//Honestly I should maybe use format that already exists
+m mduck models/duck.gltf
+m mbox models/box.gltf.glb
+s sbasic shaders/vertex.vert shaders/fragment.frag
+s ssun shaders/sun.vert shaders/sun.frag
+t tbasic 0 0 0/0 0 0/1 1 1
+t tduck 0 2 0/0 0 0/0.01 0.01 0.01
+o mduck ssun tduck
