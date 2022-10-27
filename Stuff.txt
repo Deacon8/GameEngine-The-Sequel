@@ -1,11 +1,12 @@
+TODO
+Organize structs and cpp files
+Setup entity system -> Either bitwise component system, or generic void* array like uniform system
+Keep input loop in main
 
+Figure out and clean up gltf loader
 
 Shader Implementation
 In markup have uniforms???
-
-ShaderUniforms Struct
-pointer to ShaderUniforms in Shader
-
 
 Markup Implementation
 //Honestly I should maybe use format that already exists

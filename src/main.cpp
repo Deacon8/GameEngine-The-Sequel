@@ -39,25 +39,11 @@ int main( int argc, char* args[] )
     glm::vec3 sun_color = glm::vec3(1.0, 1.0, 1.0);
     //Load Shader
     //Finding position every frame??
-    Shader shader = LazyLoadShader("res/shaders/sun.vert", "res/shaders/sun.frag");
+    Shader shader = LoadShader("res/shaders/sun.vert", "res/shaders/sun.frag", 2);
     //Stuff to do during parsing
-    shader.mvploc[0] = glGetUniformLocation(shader.ShaderProgram, "model");
-    shader.mvploc[1] = glGetUniformLocation(shader.ShaderProgram, "view");
-    shader.mvploc[2] = glGetUniformLocation(shader.ShaderProgram, "projection");
     shader.uniforms = (Uniform*)malloc(sizeof(Uniform) * 2);
-    shader.ucount = 2;
-    shader.uniforms[0].data = (float*)malloc(sizeof(glm::vec3));
-    shader.uniforms[0].data = (float*)&sun_position;
-    shader.uniforms[0].type = UVec3;
-    shader.uniforms[0].name = (char*)malloc(sizeof(char) * 13);
-    shader.uniforms[0].name = "sun_position";
-    shader.uniforms[0].location = glGetUniformLocation(shader.ShaderProgram, shader.uniforms[0].name);
-    shader.uniforms[1].data = (float*)malloc(sizeof(glm::vec3));
-    shader.uniforms[1].data = (float*)&sun_color;
-    shader.uniforms[1].type = UVec3;
-    shader.uniforms[1].name = (char*)malloc(sizeof(char) * 10);
-    shader.uniforms[1].name = "sun_color";
-    shader.uniforms[1].location = glGetUniformLocation(shader.ShaderProgram, shader.uniforms[1].name);
+    shader.uniforms[0] = Uniform(UVec3, "sun_position", (float*)&sun_position, shader.ShaderProgram);
+    shader.uniforms[1] = Uniform(UVec3, "sun_color", (float*)&sun_color, shader.ShaderProgram);
 
     //Event Loop
     while (mainWindow.Running)

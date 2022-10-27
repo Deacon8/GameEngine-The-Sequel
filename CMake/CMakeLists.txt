@@ -3,7 +3,9 @@ cmake_minimum_required(VERSION 3.10)
 project(3DBrowser)
 
 if(MSVC)
+    # Security may be scuffed
     add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+    #set_target_properties(${BUILD_TARGET} PROPERTIES LINK_FLAGS "/PROFILE")
 endif()
 
 set(CMAKE_USE_RELATIVE_PATHS TRUE)

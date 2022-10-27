@@ -86,60 +86,53 @@ void Shader::DeleteShader(unsigned int shader)
 	glDeleteShader(shader);
 }
 
-void Shader::SetUniformFloat(const char* name, float value, int location)
-{
-	glUseProgram(ShaderProgram);
-	glUniform1f(location, value);
-}
-
-void Shader::SetUniformVec3(const char* name, glm::vec3 &value, int location)
-{
-	glUseProgram(ShaderProgram);
-	glUniform3fv(location, 1, &value[0]);
-}
-
-void Shader::SetUniformMat4(const char* name, glm::mat4 &value, int location)
-{
-	glUseProgram(ShaderProgram);
-	glUniformMatrix4fv(location, 1, GL_FALSE, (&value[0][0]));
-}
-
 void Shader::SetAllUniforms(Transform model, glm::mat4 &view, glm::mat4 &projection)
 {	
-	this->SetUniformMat4("projection", projection, mvploc[2]);
-	this->SetUniformMat4("view", view, mvploc[1]);
-	this->SetUniformMat4("model", model.GetMatrix(), mvploc[0]);
+	//Find out where sampler is being set
+	glUseProgram(ShaderProgram);
+	//Calculate on CPU first
+	glUniformMatrix4fv(mvploc[0], 1, GL_FALSE, &(model.GetMatrix())[0][0]);
+	glUniformMatrix4fv(mvploc[1], 1, GL_FALSE, &view[0][0]);
+	glUniformMatrix4fv(mvploc[2], 1, GL_FALSE, &projection[0][0]);
 	for(int i = 0; i < ucount; i++)
-	{
+	{	
 		switch (uniforms[i].type)
 		{
 		case UMat4:
-			glm::mat4 umat4 = glm::make_mat4(uniforms[i].data);
-			this->SetUniformMat4(uniforms[i].name, umat4, uniforms[i].location);
+			glm::mat4 umat4 = glm::make_mat4((float*)uniforms[i].data);
+			glUniformMatrix4fv(uniforms[i].location, 1, GL_FALSE, &umat4[0][0]);
 			break;
 		case UVec3:
-			glm::vec3 uvec3 = glm::make_vec3(uniforms[i].data);
-			this->SetUniformVec3(uniforms[i].name, uvec3, uniforms[i].location);
-			//std::cout << "Name: " << uniforms[i].name << std::endl;
-			//std::cout << "Data: " << glm::to_string(uvec3) << std::endl;
+			glm::vec3 uvec3 = glm::make_vec3((float*)uniforms[i].data);
+			glUniform3fv(uniforms[i].location, 1, &uvec3[0]);
 			break;
 		
 		default:
 			printf("This shouldn't happen\n");
 			break;
 		}
-		//printf("3");
 	}
 }
 
-/*void Shader::SetUniformSampler2D(Shader shader, const char* name, unsigned int unit)
-{
-	GLint loc = glGetUniformLocation(shader.ShaderProgram, name);
-	glUseProgram(shader.ShaderProgram);
-	glUniform1i(loc, unit);
-}*/
+Uniform::Uniform(UniformType intype, const char* inname, float* indata, int ShaderProgram)
+{   
+	name = (char*)malloc(sizeof(char) * strlen(inname));
+	name = inname;
+	type = intype;
+	location = glGetUniformLocation(ShaderProgram, inname);
+	switch(type)
+	{
+		case UVec3:
+		data = (float*)malloc(sizeof(glm::vec3));
+		break;
+		case UMat4:
+		data = (float*)malloc(sizeof(glm::mat4));
+		break;
+	}
+	data = indata;
+}
 
-Shader LazyLoadShader(char* VertexShaderPath, char* FragmentShaderPath)
+Shader LoadShader(char* VertexShaderPath, char* FragmentShaderPath, int UniformCount)
 {	
 	Shader shader;
 	int vsize = GetFileSize(VertexShaderPath)+1;
@@ -155,6 +148,12 @@ Shader LazyLoadShader(char* VertexShaderPath, char* FragmentShaderPath)
 
 	shader.DeleteShader(shader.VertexShader);
 	shader.DeleteShader(shader.FragmentShader);
+
+	shader.mvploc[0] = glGetUniformLocation(shader.ShaderProgram, "model");
+    shader.mvploc[1] = glGetUniformLocation(shader.ShaderProgram, "view");
+    shader.mvploc[2] = glGetUniformLocation(shader.ShaderProgram, "projection");
+
+	shader.ucount = UniformCount;
 	
 	return shader;
 }

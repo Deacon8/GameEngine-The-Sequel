@@ -11,9 +11,10 @@ enum UniformType
 struct Uniform
 {   
     UniformType type;
-    char* name;
-    float* data;
+    const char* name;
+    void* data;
     int location;
+    Uniform(UniformType intype, const char* inname, float* indata, int ShaderProgram);
 };
 
 struct Shader
@@ -26,9 +27,8 @@ struct Shader
     //Uniforms
     Uniform* uniforms;
     unsigned short ucount;
+    //Switch to mvp on cpu
     int mvploc[3];
-    //shader.SetUniformVec3("sun_color", sun_color);
-    //type name variable
 
     //Possibly combine at some point
     unsigned int LoadVertexShader(const char* source);
@@ -38,14 +38,10 @@ struct Shader
 
     void DeleteShader(unsigned int shader);
 
-    void SetUniformFloat(const char* name, float value, int location);
-    void SetUniformVec3(const char* name, glm::vec3 &value, int location);
-    void SetUniformMat4(const char* name, glm::mat4 &value, int location);
-
     void SetUniformSampler2D(const char* name, unsigned int unit);
 
     void SetAllUniforms(Transform model, glm::mat4 &view, glm::mat4 &projection);
 };
 
 void LoadShaderSource(char* destination, char* path);
-Shader LazyLoadShader(char* VertexShaderPath, char* FragmentShaderPath);
+Shader LoadShader(char* VertexShaderPath, char* FragmentShaderPath, int UniformCount);
