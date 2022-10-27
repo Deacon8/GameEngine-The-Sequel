@@ -2,19 +2,18 @@
 
 #include "window.h"
 #include "shader.h"
-//Separate into src file
 #include "camera.h"
+#include "renderer.h"
+#include "transform.h"
 
 /*#define TINYGLTF_IMPLEMENTATION
 #define STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "gltf/tiny_gltf.h"*/
-#include "renderer.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include "transform.h"
 
 #include "SDL2/SDL.h"
 #include "glad/glad.h"
