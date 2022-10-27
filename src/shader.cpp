@@ -1,10 +1,14 @@
 #include "shader.h"
+#include "transform.h"
 #include "memory.h"
 #include "glad/glad.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+//#include "glm/gtx/string_cast.hpp"
 #include <stdio.h>
 #include <stdlib.h>
+//#include <iostream>
 
 void LoadShaderSource(char* destination, char* path)
 {	
@@ -82,25 +86,50 @@ void Shader::DeleteShader(unsigned int shader)
 	glDeleteShader(shader);
 }
 
-void Shader::SetUniformFloat(const char* name, float value)
+void Shader::SetUniformFloat(const char* name, float value, int location)
 {
-	int location = glGetUniformLocation(ShaderProgram, name);
 	glUseProgram(ShaderProgram);
 	glUniform1f(location, value);
 }
 
-void Shader::SetUniformVec3(const char* name, glm::vec3 &value)
+void Shader::SetUniformVec3(const char* name, glm::vec3 &value, int location)
 {
-	int location = glGetUniformLocation(ShaderProgram, name);
 	glUseProgram(ShaderProgram);
 	glUniform3fv(location, 1, &value[0]);
 }
 
-void Shader::SetUniformMat4(const char* name, glm::mat4 &value)
+void Shader::SetUniformMat4(const char* name, glm::mat4 &value, int location)
 {
-	int location = glGetUniformLocation(ShaderProgram, name);
 	glUseProgram(ShaderProgram);
 	glUniformMatrix4fv(location, 1, GL_FALSE, (&value[0][0]));
+}
+
+void Shader::SetAllUniforms(Transform model, glm::mat4 &view, glm::mat4 &projection)
+{	
+	this->SetUniformMat4("projection", projection, mvploc[2]);
+	this->SetUniformMat4("view", view, mvploc[1]);
+	this->SetUniformMat4("model", model.GetMatrix(), mvploc[0]);
+	for(int i = 0; i < ucount; i++)
+	{
+		switch (uniforms[i].type)
+		{
+		case UMat4:
+			glm::mat4 umat4 = glm::make_mat4(uniforms[i].data);
+			this->SetUniformMat4(uniforms[i].name, umat4, uniforms[i].location);
+			break;
+		case UVec3:
+			glm::vec3 uvec3 = glm::make_vec3(uniforms[i].data);
+			this->SetUniformVec3(uniforms[i].name, uvec3, uniforms[i].location);
+			//std::cout << "Name: " << uniforms[i].name << std::endl;
+			//std::cout << "Data: " << glm::to_string(uvec3) << std::endl;
+			break;
+		
+		default:
+			printf("This shouldn't happen\n");
+			break;
+		}
+		//printf("3");
+	}
 }
 
 /*void Shader::SetUniformSampler2D(Shader shader, const char* name, unsigned int unit)

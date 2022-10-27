@@ -1,5 +1,20 @@
 #pragma once
 #include <glm/glm.hpp>
+#include "transform.h"
+
+enum UniformType
+{
+    UVec3,
+    UMat4
+};
+
+struct Uniform
+{   
+    UniformType type;
+    char* name;
+    float* data;
+    int location;
+};
 
 struct Shader
 {	
@@ -9,10 +24,11 @@ struct Shader
 	unsigned int ShaderProgram;
 
     //Uniforms
-    void* uniforms;
-    char** unames;
-    size_t* upositions;
+    Uniform* uniforms;
     unsigned short ucount;
+    int mvploc[3];
+    //shader.SetUniformVec3("sun_color", sun_color);
+    //type name variable
 
     //Possibly combine at some point
     unsigned int LoadVertexShader(const char* source);
@@ -22,11 +38,13 @@ struct Shader
 
     void DeleteShader(unsigned int shader);
 
-    void SetUniformFloat(const char* name, float value);
-    void SetUniformVec3(const char* name, glm::vec3 &value);
-    void SetUniformMat4(const char* name, glm::mat4 &value);
+    void SetUniformFloat(const char* name, float value, int location);
+    void SetUniformVec3(const char* name, glm::vec3 &value, int location);
+    void SetUniformMat4(const char* name, glm::mat4 &value, int location);
 
     void SetUniformSampler2D(const char* name, unsigned int unit);
+
+    void SetAllUniforms(Transform model, glm::mat4 &view, glm::mat4 &projection);
 };
 
 void LoadShaderSource(char* destination, char* path);
