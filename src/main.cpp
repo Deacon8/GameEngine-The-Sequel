@@ -5,6 +5,7 @@
 #include "camera.h"
 #include "renderer.h"
 #include "transform.h"
+//#include "entity.h"
 
 /*#define TINYGLTF_IMPLEMENTATION
 #define STB_IMAGE_IMPLEMENTATION
@@ -18,10 +19,11 @@
 #include "SDL2/SDL.h"
 #include "glad/glad.h"
 
-//Big stuff
+//Scene Stuff
 Window mainWindow;
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 
+//Input
 void ProcessInput(float);
 
 int main( int argc, char* args[] )
@@ -33,7 +35,8 @@ int main( int argc, char* args[] )
     //Create Transform
     Transform transform;
     transform.scale = glm::vec3(0.01f, 0.01f, 0.01f);
-
+    
+    //Shader Variables
     glm::vec3 sun_position = glm::vec3(3.0, 10.0, -5.0);
     glm::vec3 sun_color = glm::vec3(1.0, 1.0, 1.0);
     //Load Shader
@@ -44,24 +47,42 @@ int main( int argc, char* args[] )
     shader.uniforms[0] = Uniform(UVec3, "sun_position", (float*)&sun_position, shader.ShaderProgram);
     shader.uniforms[1] = Uniform(UVec3, "sun_color", (float*)&sun_color, shader.ShaderProgram);
 
+    //Create Entity
+    //Entity entity;
+    //entity.AddComponent(CModel, &duck);
+    //entity.AddComponent(CShader, &shader);
+    //entity.AddComponent(CTransform, &transform);
+
     //Event Loop
+    int frame = 0;
     while (mainWindow.Running)
     {   
         //Window stuff, ie deltatime
         mainWindow.Tick();
 
-        //Input -> separate ???
+        //Fun stuff
+        if(mainWindow.deltaTime < 0.01 || mainWindow.deltaTime > 0.02)
+        {
+            std::cout << "Odd FPS: " << 1/mainWindow.deltaTime << " Frame #: " << frame << std::endl;
+        }
+        frame++;
+
+        //Input -> separate ??? -> Probably now
         ProcessInput(mainWindow.deltaTime);
 
         //Prerender -> Separate ???
         glViewport(0, 0, mainWindow.SCREEN_WIDTH, mainWindow.SCREEN_HEIGHT);
         glClearColor(0.3f, 0.2f, 0.8f, 0.f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        //Calculate stuff
         glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)mainWindow.SCREEN_WIDTH / (float)mainWindow.SCREEN_HEIGHT, 0.1f, 100.0f);
         glm::mat4 view = camera.GetViewMatrix();
 
         //For each objectss
-        shader.SetAllUniforms(transform, view, projection);
+        glm::mat4 mvp = projection * view * transform.GetMatrix();
+        //((Shader*)entity.components[1].data)->SetAllUniforms(mvp);
+        shader.SetAllUniforms(mvp);
         DrawObject(duck);
 
         //Last Rendering thingy

@@ -86,14 +86,12 @@ void Shader::DeleteShader(unsigned int shader)
 	glDeleteShader(shader);
 }
 
-void Shader::SetAllUniforms(Transform model, glm::mat4 &view, glm::mat4 &projection)
+void Shader::SetAllUniforms(glm::mat4 mvp)
 {	
-	//Find out where sampler is being set
+	//TODO: Find out where sampler is being set -> Somewhere in model loading -> seems ok for now
 	glUseProgram(ShaderProgram);
 	//Calculate on CPU first
-	glUniformMatrix4fv(mvploc[0], 1, GL_FALSE, &(model.GetMatrix())[0][0]);
-	glUniformMatrix4fv(mvploc[1], 1, GL_FALSE, &view[0][0]);
-	glUniformMatrix4fv(mvploc[2], 1, GL_FALSE, &projection[0][0]);
+	glUniformMatrix4fv(mvploc, 1, GL_FALSE, &(mvp)[0][0]);
 	for(int i = 0; i < ucount; i++)
 	{	
 		switch (uniforms[i].type)
@@ -116,10 +114,10 @@ void Shader::SetAllUniforms(Transform model, glm::mat4 &view, glm::mat4 &project
 
 Uniform::Uniform(UniformType intype, const char* inname, float* indata, int ShaderProgram)
 {   
-	name = (char*)malloc(sizeof(char) * strlen(inname));
 	name = inname;
 	type = intype;
 	location = glGetUniformLocation(ShaderProgram, inname);
+	name = (char*)malloc(sizeof(char) * strlen(inname));
 	switch(type)
 	{
 		case UVec3:
@@ -149,9 +147,7 @@ Shader LoadShader(char* VertexShaderPath, char* FragmentShaderPath, int UniformC
 	shader.DeleteShader(shader.VertexShader);
 	shader.DeleteShader(shader.FragmentShader);
 
-	shader.mvploc[0] = glGetUniformLocation(shader.ShaderProgram, "model");
-    shader.mvploc[1] = glGetUniformLocation(shader.ShaderProgram, "view");
-    shader.mvploc[2] = glGetUniformLocation(shader.ShaderProgram, "projection");
+	shader.mvploc = glGetUniformLocation(shader.ShaderProgram, "mvp");
 
 	shader.ucount = UniformCount;
 	

@@ -28,7 +28,7 @@ struct Shader
     Uniform* uniforms;
     unsigned short ucount;
     //Switch to mvp on cpu
-    int mvploc[3];
+    int mvploc;
 
     //Possibly combine at some point
     unsigned int LoadVertexShader(const char* source);
@@ -40,7 +40,7 @@ struct Shader
 
     void SetUniformSampler2D(const char* name, unsigned int unit);
 
-    void SetAllUniforms(Transform model, glm::mat4 &view, glm::mat4 &projection);
+    void SetAllUniforms(glm::mat4 mvp);
 };
 
 void LoadShaderSource(char* destination, char* path);

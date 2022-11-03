@@ -1,5 +1,5 @@
 TODO
-Organize structs and cpp files
+Calculate MVP on cpu
 Setup entity system -> Either bitwise component system, or generic void* array like uniform system
 Keep input loop in main
 
