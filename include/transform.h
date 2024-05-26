@@ -11,4 +11,8 @@ struct Transform
     glm::vec3 scale = glm::vec3(1, 1, 1);
 
     glm::mat4 GetMatrix();
+
+    void translate(glm::vec3 transformation);
+    void eulerRotate(glm::vec3 eulerAngle);
+    void localScale(glm::vec3 size);
 };

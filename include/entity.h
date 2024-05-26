@@ -1,64 +1,72 @@
 #pragma once
-#include "stdlib.h"
-//Rework along with shader system when inspiration hits
-//Also what if multiple of one component
 
-enum ComponentType
-{
-    CTransform,
-    CModel,
-    CShader
-};
+#include <stdlib.h>
+#include <stack>
+#include <stdint.h>
 
-struct Component
-{
-    ComponentType type;
-    void* data;
-};
+#include "transform.h"
+#include "renderer.h"
+#include "shader.h"
 
-struct Entity
-{
-    Component* components = NULL;
-    unsigned int componentCount = 0;
+#define MAX_ENTITIES 100
 
-    void AddComponent(ComponentType type, void* data)
-    {   
-        Component component;
-        component.type = type;
-        switch(type)
-        {
-            case CTransform: component.data = malloc(sizeof(Transform));
-                break;
-            case CModel: component.data = malloc(sizeof(Model));
-                break;            
-            case CShader: component.data = malloc(sizeof(Shader));
-                break;
-        }
-        component.data = data;
-        componentCount++;
-        components = (Component*)realloc(components, sizeof(Component) * componentCount);
-        //printf("Hi %u\n", componentCount);
-        components[componentCount] = component;
-        //printf("Hi");
-    }
+typedef uint32_t Entity;
+typedef uint8_t ComponentType;
+typedef unsigned char Signature; //Manages which components are contained
 
-    void* GetComponent(ComponentType type)
+//Bit fiddling
+const unsigned char bExists     = 0b10000000;
+const unsigned char bTransform  = 0b01000000;
+const unsigned char bModel      = 0b00100000;
+const unsigned char bShader     = 0b00010000;
+
+//Components
+static Transform transforms[MAX_ENTITIES];
+static Model models[MAX_ENTITIES];
+static Shader shaders[MAX_ENTITIES];
+
+struct EntityManager
+{       
+    // Add stack/queue to manage destruction
+    unsigned int currentEntityCount = 0;
+
+    //Entity
+    bool isAlive[MAX_ENTITIES] = { 0 };
+    std::stack<Entity> availableEntities{};
+    Signature signatures[MAX_ENTITIES] = { 0 };
+
+    EntityManager()
     {
-        for(unsigned int i = 0; i < componentCount; i++)
+        for(int i = MAX_ENTITIES-1; i >= 0; i--)
         {
-            if(components[i].type == type)
-            {   
-                switch(type)
-                {   
-                    case CTransform:
-                        return (Transform*)components[i].data;
-                    case CModel:
-                        return (Model*)components[i].data;
-                    case CShader:
-                        return (Shader*)components[i].data;
-                }
-            }
+            availableEntities.push(i);
         }
-        return 0;
+    }
+
+    Entity CreateEntity()
+    {   
+        if(currentEntityCount <= MAX_ENTITIES)
+        {
+            currentEntityCount++;
+            Entity e = availableEntities.top();
+            availableEntities.pop();
+            isAlive[e] = 1;
+            return e;
+        } 
+        else 
+        {
+            printf("Out of space\n");
+            return 0;
+        }
+    }
+
+    void DestroyEntity(Entity entity)
+    {   
+        currentEntityCount--;
+        isAlive[entity] = 0;
+        availableEntities.push(entity);
+        //We don't destroy data -> will probably cause annoying bugs
     }
 };
+
+EntityManager entityManager;

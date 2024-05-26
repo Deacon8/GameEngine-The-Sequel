@@ -40,7 +40,7 @@ struct Shader
 
     void SetUniformSampler2D(const char* name, unsigned int unit);
 
-    void SetAllUniforms(glm::mat4 mvp);
+    void UseShader(glm::mat4 mvp);
 };
 
 void LoadShaderSource(char* destination, char* path);

@@ -5,7 +5,8 @@
 #include "camera.h"
 #include "renderer.h"
 #include "transform.h"
-//#include "entity.h"
+
+#include "entity.h"
 
 /*#define TINYGLTF_IMPLEMENTATION
 #define STB_IMAGE_IMPLEMENTATION
@@ -30,60 +31,47 @@ int main( int argc, char* args[] )
 {   
     //Load Window
     mainWindow = InitWindow();
-    //Load Model
-    Model duck = loadModel("res/models/duck.gltf");
-    //Create Transform
-    Transform transform;
-    transform.scale = glm::vec3(0.01f, 0.01f, 0.01f);
+
+    //Test Entity
+    Entity duck = entityManager.CreateEntity();
+    models[duck] = loadModel("res/models/duck.gltf");
+    transforms[duck].scale = glm::vec3(0.01f, 0.01f, 0.01f);
     
-    //Shader Variables
+    //Shader
     glm::vec3 sun_position = glm::vec3(3.0, 10.0, -5.0);
     glm::vec3 sun_color = glm::vec3(1.0, 1.0, 1.0);
-    //Load Shader
-    //Finding position every frame??
-    Shader shader = LoadShader("res/shaders/sun.vert", "res/shaders/sun.frag", 2);
-    //Stuff to do during parsing
-    shader.uniforms = (Uniform*)malloc(sizeof(Uniform) * 2);
-    shader.uniforms[0] = Uniform(UVec3, "sun_position", (float*)&sun_position, shader.ShaderProgram);
-    shader.uniforms[1] = Uniform(UVec3, "sun_color", (float*)&sun_color, shader.ShaderProgram);
-
-    //Create Entity
-    //Entity entity;
-    //entity.AddComponent(CModel, &duck);
-    //entity.AddComponent(CShader, &shader);
-    //entity.AddComponent(CTransform, &transform);
-
-    //Event Loop
-    int frame = 0;
+    shaders[duck] = LoadShader("res/shaders/sun.vert", "res/shaders/sun.frag", 2);
+    shaders[duck].uniforms = (Uniform*)malloc(sizeof(Uniform) * 2);
+    shaders[duck].uniforms[0] = Uniform(UVec3, "sun_position", (float*)&sun_position, shaders[duck].ShaderProgram);
+    shaders[duck].uniforms[1] = Uniform(UVec3, "sun_color", (float*)&sun_color, shaders[duck].ShaderProgram);
+    
     while (mainWindow.Running)
     {   
         //Window stuff, ie deltatime
         mainWindow.Tick();
 
-        //Fun stuff
-        if(mainWindow.deltaTime < 0.01 || mainWindow.deltaTime > 0.02)
-        {
-            std::cout << "Odd FPS: " << 1/mainWindow.deltaTime << " Frame #: " << frame << std::endl;
-        }
-        frame++;
-
-        //Input -> separate ??? -> Probably now
+        //Input
         ProcessInput(mainWindow.deltaTime);
 
-        //Prerender -> Separate ???
+        //Prerender
         glViewport(0, 0, mainWindow.SCREEN_WIDTH, mainWindow.SCREEN_HEIGHT);
         glClearColor(0.3f, 0.2f, 0.8f, 0.f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        //Calculate stuff
+        //Camera Stuff
         glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)mainWindow.SCREEN_WIDTH / (float)mainWindow.SCREEN_HEIGHT, 0.1f, 100.0f);
         glm::mat4 view = camera.GetViewMatrix();
 
-        //For each objectss
-        glm::mat4 mvp = projection * view * transform.GetMatrix();
-        //((Shader*)entity.components[1].data)->SetAllUniforms(mvp);
-        shader.SetAllUniforms(mvp);
-        DrawObject(duck);
+        //Draw each object
+        for(int i = 0; i < MAX_ENTITIES; i++)
+        {   
+            if(entityManager.isAlive[i])
+            {
+                glm::mat4 mvp = projection * view * transforms[i].GetMatrix();
+                shaders[duck].UseShader(mvp);
+                DrawObject(models[duck]);
+            }
+        }
 
         //Last Rendering thingy
         SDL_GL_SwapWindow(mainWindow.window);

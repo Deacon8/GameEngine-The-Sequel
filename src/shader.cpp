@@ -1,13 +1,15 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 #include "shader.h"
 #include "transform.h"
 #include "memory.h"
 #include "glad/glad.h"
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 //#include "glm/gtx/string_cast.hpp"
-#include <stdio.h>
-#include <stdlib.h>
 //#include <iostream>
 
 void LoadShaderSource(char* destination, char* path)
@@ -86,7 +88,7 @@ void Shader::DeleteShader(unsigned int shader)
 	glDeleteShader(shader);
 }
 
-void Shader::SetAllUniforms(glm::mat4 mvp)
+void Shader::UseShader(glm::mat4 mvp)
 {	
 	//TODO: Find out where sampler is being set -> Somewhere in model loading -> seems ok for now
 	glUseProgram(ShaderProgram);
