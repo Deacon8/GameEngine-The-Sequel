@@ -259,9 +259,7 @@ void debugModel(tinygltf::Model &model) {
 //Rendering
 
 void DrawObject(Model model) 
-{   
-  //Set Shader Uniforms
-  
+{
   //Draw Model
   glBindVertexArray(model.vaoAndEbos.first);
   const tinygltf::Scene &scene = model.gltf.scenes[model.gltf.defaultScene];

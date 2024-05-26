@@ -15,7 +15,7 @@ typedef uint8_t ComponentType;
 typedef unsigned char Signature; //Manages which components are contained
 
 //Bit fiddling
-const unsigned char bExists     = 0b10000000;
+const unsigned char bisAlive     = 0b10000000;
 const unsigned char bTransform  = 0b01000000;
 const unsigned char bModel      = 0b00100000;
 const unsigned char bShader     = 0b00010000;
@@ -31,9 +31,8 @@ struct EntityManager
     unsigned int currentEntityCount = 0;
 
     //Entity
-    bool isAlive[MAX_ENTITIES] = { 0 };
+    unsigned char isActive[MAX_ENTITIES] = { 0 };
     std::stack<Entity> availableEntities{};
-    Signature signatures[MAX_ENTITIES] = { 0 };
 
     EntityManager()
     {
@@ -50,7 +49,7 @@ struct EntityManager
             currentEntityCount++;
             Entity e = availableEntities.top();
             availableEntities.pop();
-            isAlive[e] = 1;
+            isActive[e] |= bisAlive;
             return e;
         } 
         else 
@@ -63,9 +62,19 @@ struct EntityManager
     void DestroyEntity(Entity entity)
     {   
         currentEntityCount--;
-        isAlive[entity] = 0;
+        isActive[entity] = 0;
         availableEntities.push(entity);
         //We don't destroy data -> will probably cause annoying bugs
+    }
+
+    bool hasComponent(Entity entity, unsigned char Component)
+    {
+        return (isActive[entity] & Component) == Component;
+    }
+
+    void setComponent(Entity entity, unsigned char Component)
+    {
+        isActive[entity] |= Component;
     }
 };
 

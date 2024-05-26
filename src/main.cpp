@@ -34,6 +34,7 @@ int main( int argc, char* args[] )
 
     //Test Entity
     Entity duck = entityManager.CreateEntity();
+    entityManager.setComponent(duck, bModel | bShader | bTransform);
     models[duck] = loadModel("res/models/duck.gltf");
     transforms[duck].scale = glm::vec3(0.01f, 0.01f, 0.01f);
     
@@ -44,9 +45,15 @@ int main( int argc, char* args[] )
     shaders[duck].uniforms = (Uniform*)malloc(sizeof(Uniform) * 2);
     shaders[duck].uniforms[0] = Uniform(UVec3, "sun_position", (float*)&sun_position, shaders[duck].ShaderProgram);
     shaders[duck].uniforms[1] = Uniform(UVec3, "sun_color", (float*)&sun_color, shaders[duck].ShaderProgram);
+
+    //Terrain
+    Entity terrain = entityManager.CreateEntity();
+    entityManager.setComponent(duck, bModel | bShader | bTransform);
+    shaders[terrain] = LoadShader("res/shaders/vertex.vert", "res/shaders/fragment.frag", 0);
     
+
     while (mainWindow.Running)
-    {   
+    {
         //Window stuff, ie deltatime
         mainWindow.Tick();
 
@@ -65,11 +72,11 @@ int main( int argc, char* args[] )
         //Draw each object
         for(int i = 0; i < MAX_ENTITIES; i++)
         {   
-            if(entityManager.isAlive[i])
+            if(entityManager.hasComponent(i, bisAlive | bModel | bTransform| bShader))
             {
                 glm::mat4 mvp = projection * view * transforms[i].GetMatrix();
-                shaders[duck].UseShader(mvp);
-                DrawObject(models[duck]);
+                shaders[i].UseShader(mvp);
+                DrawObject(models[i]);
             }
         }
 
